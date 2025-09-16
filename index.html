@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description"
+          content="PSALM-V: Automating Symbolic Planning in Interactive Visual Environments with Large Language Models">
+    <meta name="keywords" content="Vision Language Models, Neuro-symbolic, Symbolic Planning, PDDL">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PSALM-V: Automating Symbolic Planning in Interactive Visual Environments with Large Language Models</title>
+
+    <script type="text/javascript" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179758052-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'UA-179758052-1');
+    </script>
+
+    <script>
+        function updateSingleVideo() {
+            var demo = document.getElementById("single-menu-demos").value;
+            var task = document.getElementById("single-menu-tasks").value;
+            var inst = document.getElementById("single-menu-instances").value;
+
+            console.log("single", demo, task, inst)
+
+            var video = document.getElementById("multi-task-result-video");
+            video.src = "media/results/sim_rollouts/" +
+                "n" +
+                demo +
+                "-" +
+                task +
+                "-" +
+                inst +
+                ".mp4"
+            video.playbackRate = 1.75;
+            video.play();
+        }
+
+        function updateQpredVideo() {
+            var task = document.getElementById("single-menu-qpred").value;
+
+            console.log("qpred", task)
+
+            var video = document.getElementById("q-pred-video");
+            video.src = "media/results/qpred/" +
+                task +
+                ".mp4"
+            video.playbackRate = 1.75;
+            video.play();
+        }
+
+    </script>
+
+    <!--  <link rel="icon" href="xxx.jpg" type="image/png">-->
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+    <!-- <link rel="icon" href="./static/images/tifa.png"> -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/index.js"></script>
+</head>
+<body onload="updateSingleVideo(); updateQpredVideo();">
+<!-- Google Tag Manager (noscript) -->
+<!-- <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MFCT45H" height="0" width="0"
+    style="display:none;visibility:hidden"></iframe></noscript> -->
+<!-- End Google Tag Manager (noscript) -->
+
+
+<section class="hero">
+    <div class="hero-body">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column has-text-centered">
+                    <h1 class="title is-1 publication-title">PSALM-V: Automating Symbolic Planning in Interactive Visual
+                        Environments with Large Language Models</h1>
+                    <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              Anonymous
+            </span>
+                    </div>
+
+                    <!--          <div class="is-size-5 publication-authors">-->
+                    <!--            <span class="author-block"><sup>&#9824; </sup>xxx</span>&nbsp;&nbsp;-->
+                    <!--            <br>-->
+                    <!--            <span style="font-size:small"><sup>&dagger; </sup><i>Equal contribution, </i><sup>&Dagger; </sup><i>Equal contribution</i></span>-->
+                    <!--          </div>-->
+
+                    <!--          <div class="column has-text-centered">-->
+                    <!--            <div class="publication-links">-->
+                    <!--              &lt;!&ndash; PDF Link. &ndash;&gt;-->
+                    <!--              <span class="link-block">-->
+                    <!--                <a href="xxx"-->
+                    <!--                   class="external-link button is-normal is-rounded is-dark">-->
+                    <!--                  <span class="icon">-->
+                    <!--                      <i class="fas fa-file-pdf"></i>-->
+                    <!--                  </span>-->
+                    <!--                  <span>Paper</span>-->
+                    <!--                </a>-->
+                    <!--              </span>-->
+
+                    <!--              &lt;!&ndash; Data Link. &ndash;&gt;-->
+                    <!--              <span class="link-block">-->
+                    <!--                <span class="button-wrapper">-->
+                    <!--                  <a href="xxx"-->
+                    <!--                     class="external-link button is-normal is-rounded is-dark">-->
+                    <!--                    <i style="font-size: small" class="fa fa-database"></i> -->
+                    <!--                    <span>&nbsp;Data</span>-->
+                    <!--                  </a>-->
+                    <!--                </span>-->
+                    <!--              </span>-->
+
+                    <!-- Video Link. -->
+                    <!--              <span class="link-block">-->
+                    <!--                <span class="button-wrapper">-->
+                    <!--                  <a class="external-link button is-normal is-rounded is-dark">-->
+                    <!--                    <i style="font-size: small" class="fa fa-database"></i> -->
+                    <!--                    <span>&nbsp;Slides (Coming Soon)</span>-->
+                    <!--                  </a>-->
+                    <!--                </span>-->
+                    <!--              </span>-->
+
+                    <!--              &lt;!&ndash; Code Link. &ndash;&gt;-->
+                    <!--              <span class="link-block">-->
+                    <!--                <span class="button-wrapper">-->
+                    <!--                  <a href="xxx"-->
+                    <!--                     class="external-link button is-normal is-rounded is-dark">-->
+                    <!--                    <i style="font-size: small" class="fa fa-database"></i> -->
+                    <!--                    <span>&nbsp;Code</span>-->
+                    <!--                  </a>-->
+                    <!--                </span>-->
+                    <!--              </span>-->
+
+
+                    <!--            </div>-->
+                    <!--          </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="hero is-light is-small">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <div id="results-carousel" class="results-carousel" style="display: flex; gap: 1rem; overflow-x: auto;">
+                <div class="task1-demo">
+                    <h4 class="title is-6">Move the blocks, <span style="color: #b6b607">yellow</span>
+                        on top of <span style="color: #e49706">orange</span>,
+                        <span style="color: #12ac12">green</span> on top of <span style="color: #4949f1">blue</span>.
+                    </h4>
+                    <video poster="" id="t1" autoplay muted loop playsinline height="100%">
+                        <source src="static/images/robot_task1.mp4"
+                                type="video/mp4">
+                    </video>
+                </div>
+                <div class="task2-demo">
+                    <h4 class="title is-6">Move the blocks, <span style="color: #e49706">orange</span>
+                        on top of <span style="color: #12ac12">green</span>, <span style="color: #12ac12">green</span>
+                        on top of <span style="color: rebeccapurple">purple</span>.</h4>
+                    <video poster="" id="t2" autoplay muted loop playsinline height="100%">
+                        <source src="static/images/robot_task2.mp4"
+                                type="video/mp4">
+                    </video>
+                </div>
+                <div class="task3-demo">
+                    <h4 class="title is-6">Move the blocks, <span style="color: #12ac12">green</span> on top of <span
+                            style="color: rebeccapurple">purple</span>,
+                        <span style="color: #4949f1">blue</span> on top of <span style="color: #12ac12">green</span>.
+                    </h4>
+                    <video poster="" id="t3" autoplay muted loop playsinline height="100%">
+                        <source src="static/images/robot_task3.mp4"
+                                type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="hero teaser">
+    <div class="container is-max-desktop">
+        <div class="hero-body">
+            <br><br>
+            <h3 class="title is-3 has-text-centered">Overview</h3>
+            <div style="text-align: center;"><br/>
+                <img src="./static/images/teaser_psalm_v.png" alt="rd_teaser" width="100%" class="center">
+            </div>
+            <h2 class="subtitle" style="margin: 0 auto; text-align: left; max-width:800px;">
+                <br>
+                LLMs can propose plans and generate action semantics, but <b>struggle with state tracking</b>. PDDL
+                symbolic planners leverage specialized search algorithms, but <b>require predefined action semantics for
+                the environment</b>. <span style="color: darkred"><b>PSALM-V</b></span> integrates the strengths of both
+                for tasks on partially observed, visual environments.
+                <br>
+            </h2>
+        </div>
+    </div>
+</section>
+
+<section class="abstract">
+    <div class="container is-max-desktop">
+        <!-- Abstract. -->
+        <div class="columns is-centered">
+            <div class="column is-four-fifths">
+                <h3 class="title is-3 has-text-centered">Abstract</h3>
+                <div class="column content has-text-justified">
+                    <p>
+                        We propose PSALM-V, the first autonomous neuro-symbolic learning system able to induce symbolic
+                        <em>action semantics (i.e., pre- and post-conditions)</em> in visual environments through
+                        interaction.
+                        PSALM-V bootstraps reliable symbolic planning without expert action definitions, using LLMs to
+                        generate heuristic plans and candidate symbolic semantics.
+                        Previous work has explored using large language models to generate action semantics for Planning
+                        Domain Definition Language (PDDL)-based symbolic planners.
+                        However, these approaches have primarily focused on text-based domains or relied on unrealistic
+                        assumptions, such as access to a predefined problem file, full observability, or explicit error
+                        messages.
+                        By contrast, <b>PSALM-V dynamically infers PDDL problem files and domain action semantics by
+                        analyzing execution outcomes and synthesizing possible error explanations. </b>
+                        The system iteratively generates and executes plans while maintaining a tree-structured belief
+                        over possible action semantics for each action, iteratively refining these beliefs until a goal
+                        state is reached.
+                        Simulated experiments of task completion in ALFRED demonstrate that PSALM-V increases the plan
+                        success rate from 37% (Claude-3.7) to 74% in partially observed setups.
+                        Results on two 2D game environments, RTFM and Overcooked-AI, show that PSALM-V improves step
+                        efficiency and succeeds in domain induction in multi-agent settings.
+                        PSALM-V correctly induces PDDL pre- and post-conditions for real-world robot BlocksWorld tasks,
+                        <em>despite low-level manipulation failures from the robot</em>.
+                    </p>
+                </div>
+            </div>
+        </div>
+</section>
+
+
+<section class="section">
+    <div class="container is-max-desktop">
+        <!-- Method. -->
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+                <h3 class="title is-3 has-text-centered">PSALM-V Method</h3>
+                <div class="column content has-text-justified">
+                    <p><span style="color: darkred"><b>PSALM-V</b></span> takes as input <b>a natural language task
+                        description and a list of domain action signatures</b> (a string name for the action and the
+                        type
+                        and number of arguments it takes) and predicts both the problem file and the action semantics,
+                        <em>i.e.</em>, the preconditions and postconditions of actions in the domain
+                        file. The full pipeline of <span style="color: darkred"><b>PSALM-V</b></span> comprises six main
+                        steps.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="columns is-centered has-text-centered">
+            <!--      <div class="column is-full">-->
+            <div class="publication-video">
+                <video poster="" id="mask" autoplay muted loop playsinline height="100%">
+                    <source src="static/images/psalmv_method.mov" type="video/mp4">
+                </video>
+            </div>
+            <!--      </div>-->
+        </div>
+
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+                <div class="column content has-text-justified">
+                    <ul>
+                        <li><strong>Step 0:</strong> Initialize the problem file using an LLM based on initial, visual
+                            observation(s).
+                        </li>
+                        <li><strong>Step 1:</strong> Given the inferred domain and problem files, sample a
+                            trajectory (i.e., a plan) using an LLM. If a partial trajectory is available from the
+                            symbolic planner, use it to guide the LLM generation.
+                        </li>
+                        <li><strong>Step 2:</strong> Execute the sampled trajectory in a simulated or real environment.
+                        </li>
+                        <li><strong>Step 3:</strong> Correct the problem file based on the execution, or generate
+                            execution
+                            error message.
+                        </li>
+                        <li><strong>Step 4:</strong> Predict action semantics from the valid actions and observations
+                            and
+                            update the memory;
+                        </li>
+                        <li><strong>Step 5:</strong> Sample a domain file as the current belief and validate it by using
+                            the
+                            symbolic planner to search for a path from the inferred initial state to the specified goal
+                            state; if validation fails, or if the resulting plan fails during execution,
+                            return to <strong>Step 1</strong> with the updated domain file.
+                        </li>
+                    </ul>
+                    <p>For <strong>Step 1</strong> and <strong>Step 3</strong>, we perform prospection for \( k = 5 \)
+                        steps on LLM output to ensure the first few
+                        actions are valid under the inferred domain and problem file.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<section class="section">
+    <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+            <h3 class="title is-3 has-text-centered">Results</h3>
+            <br>
+        </div>
+        <div class="columns is-centered has-text-centered">
+            <div class="container">
+                <h3 class="subtitle has-text-centered"><span>Real Robot Demo</span> <br> Task: Move the blocks,
+                    <span style="color: #b6b607">yellow</span>
+                    on top of <span style="color: #e49706">orange</span>,
+                    <span style="color: #12ac12">green</span> on top of <span style="color: #4949f1">blue</span>. </h3>
+                <video poster="" id="robot-demo" autoplay muted loop height="100%">
+                    <source src="static/images/robot_task1.mp4"
+                            type="video/mp4">
+                </video>
+            </div>
+        </div>
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+                <div class="column content has-text-justified">
+                    <p>
+                        <span style="color: darkred"><b>PSALM-V</b></span> remains robust even in the presence of
+                        low-level
+                        execution failures, such as
+                        mis-manipulating the target object, as in the video above, where the robot mistakenly stacks the
+                        blue
+                        cube on the orange cube.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="columns is-centered has-text-centered">
+            <div class="container">
+                <h3 class="subtitle has-text-centered"><span>Simulated Environments</span> <br></h3>
+            </div>
+        </div>
+
+        <div class="columns is-centered has-text-centered">
+            <img src="./static/images/sim_base.png" alt="base" width="50%" class="center">
+        </div>
+
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+                <div class="column content has-text-justified">
+                    <p>
+                        <span style="color: darkred"><b>PSALM-V</b></span> <b>enables strong planning after domain
+                        induction.</b>
+                        LLMs alone struggle with partially observed planning tasks.
+                        Compared to Claude-3.7 and GPT-4o, <span style="color: darkred"><b>PSALM-V</b></span> more
+                        than <span style="color: royalblue"><b>doubles</b></span> the SR on ALFRED and achieves
+                        consistently robust performance, maintaining a <span style="color: royalblue"><b>100%</b></span>
+                        win rate, on both RTFM and OverCooked-AI.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="columns is-centered has-text-centered">
+            <img src="./static/images/sim_ablation.png" alt="ablation" width="100%" class="center">
+        </div>
+
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+                <div class="column content has-text-justified">
+                    <p>
+                        <b>All components of <span style="color: darkred">PSALM-V</span> contribute to accuracy and step
+                            efficiency.</b>
+                        Removing components of <span style="color: darkred"><b>PSALM-V</b></span> leads to reduced F1
+                        scores and increased execution cost,
+                        as measured by Number of Resets (NR) and Number of Executed Steps (NES). For example, disabling
+                        problem file checking causes NES to spike from 158 to 287 (nearly 2x) in ALFRED and from 135 to
+                        928 (nearly 7x) in RTFM, reflecting inefficient exploration due to undetected problem file
+                        errors.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="hero is-small">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns is-centered">
+                    <div class="column is-four-fifths">
+                        <h2 class="title is-3 has-text-centered">Supplementary Material</h2>
+                        <div class="content has-text-centered">
+                            <p>
+                                <a href="./static/files/supplementary.pdf" target="_blank" class="button is-primary is-large">
+                                    <span class="icon">
+                                        <svg class="svg-inline--fa fa-file-pdf fa-w-12" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="file-pdf" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg=""><path fill="currentColor" d="M181.9 256.1c-5-16-4.9-46.9-2-46.9 8.4 0 7.6 36.9 2 46.9zm-1.7 47.2c-7.7 20.2-17.3 43.3-28.4 62.7 18.3-7 39-17.2 62.9-21.9-12.7-9.6-24.9-23.4-34.5-40.8zM86.1 428.1c0 .8 13.2-5.4 34.9-40.2-6.7 6.3-29.1 24.5-34.9 40.2zM248 160h136v328c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V24C0 10.7 10.7 0 24 0h200v136c0 13.2 10.8 24 24 24zm-8 171.8c-20-12.2-33.3-29-42.7-53.8 4.5-18.5 11.6-46.6 6.2-64.2-4.7-29.4-42.4-26.5-47.8-6.8-5 18.3-.4 44.1 8.1 77-11.6 27.6-28.7 64.6-40.8 85.8-.1 0-.1.1-.2.1-27.1 13.9-73.6 44.5-54.5 68 5.6 6.9 16 10 21.5 10 17.9 0 35.7-18 61.1-61.8 25.8-8.5 54.1-19.1 79-23.2 21.7 11.8 47.1 19.5 64 19.5 29.2 0 31.2-32 19.7-43.4-13.9-13.6-54.3-9.7-73.6-7.2zM377 105L279 7c-4.5-4.5-10.6-7-17-7h-6v128h128v-6.1c0-6.3-2.5-12.4-7-16.9zm-74.1 255.3c4.1-2.7-2.5-11.9-42.8-9 37.1 15.8 42.8 9 42.8 9z"></path></svg><!-- <i class="fas fa-file-pdf"></i> Font Awesome fontawesome.com -->
+                                    </span>
+                                    <span>View PDF Appendix</span>
+                                </a>
+                            </p>
+                        </div>
+                        <!-- Embedded PDF viewer -->
+                        <div class="content">
+                            <iframe src="./static/files/supplementary.pdf" width="100%" height="600px" style="border: 1px solid #ccc; border-radius: 5px;">
+                                <p>Your browser does not support PDFs.
+                                   <a href="./static/files/supplementary.pdf">Download the PDF</a>.
+                                </p>
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!--<section class="section" id="BibTeX">-->
+<!--  <div class="container is-max-desktop content">-->
+<!--    <h2 class="title">BibTeX</h2>-->
+<!--    <pre><code>xxx</code></pre>-->
+<!--  </div>-->
+<!--</section>-->
+
+
+<footer class="footer">
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-8">
+                <div class="content">
+                    <p>
+                        This website is licensed under a <a rel="license"
+                                                            href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+                        Commons Attribution-ShareAlike 4.0 International License</a>.
+                    </p>
+                    <p>
+                        This means you are free to borrow the <a
+                            href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+                        we just ask that you link back to this page in the footer.
+                        Please remember to remove the analytics code included in the header of the website which
+                        you do not want on your website.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
